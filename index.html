@@ -9,12 +9,16 @@
       --bg: #121212;
       --text: #e0e0e0;
       --accent: #4da6ff;
+      --card-bg: #1e1e1e;
+      --border: #333;
+      --base-font-size: 20px;
     }
+
     body {
       background-color: var(--bg);
       color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 20px;
+      font-size: var(--base-font-size);
       line-height: 1.6;
       margin: 0;
       padding: 20px;
@@ -22,62 +26,126 @@
       margin-left: auto;
       margin-right: auto;
     }
+
     h1 {
       text-align: center;
-      font-size: 28px;
-      margin-bottom: 20px;
+      font-size: 1.4em;
+      margin-bottom: 15px;
       color: #fff;
     }
-    
-    /* Inhaltsverzeichnis */
+
+    /* Controls for Font Size */
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      background: var(--card-bg);
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .controls span {
+      font-size: 0.8em;
+      color: #aaa;
+      margin-right: 5px;
+    }
+
+    .btn-size {
+      background: #2a2a2a;
+      color: var(--text);
+      border: 1px solid #444;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+
+    .btn-size:hover {
+      background: #333;
+    }
+
+    .btn-size.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+
+    /* Navigation */
     nav {
-      background: #1e1e1e;
+      background: var(--card-bg);
       padding: 15px;
       border-radius: 8px;
       margin-bottom: 30px;
+      border: 1px solid var(--border);
     }
+
     nav ul {
       list-style: none;
       padding: 0;
       margin: 10px 0 0 0;
     }
+
     nav li {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
+
     nav a {
       color: var(--accent);
       text-decoration: none;
       font-weight: bold;
       display: block;
     }
-    
-    /* Liedabschnitte */
+
+    /* Song sections */
     .song {
-      border-top: 1px solid #333;
+      border-top: 1px solid var(--border);
       padding-top: 20px;
       margin-bottom: 40px;
     }
+
     .song h2 {
       color: var(--accent);
       margin-top: 0;
-      font-size: 24px;
+      font-size: 1.2em;
     }
+
     .strophe {
       margin-bottom: 20px;
     }
+
     .refrain {
-      background-color: #1a1a1a;
-      padding: 10px 15px;
+      background-color: #1a2430;
+      padding: 12px 15px;
       border-left: 4px solid var(--accent);
       border-radius: 4px;
       margin-bottom: 20px;
     }
+
     .back-to-top {
       display: inline-block;
-      margin-top: 15px;
-      font-size: 16px;
+      margin-top: 10px;
+      font-size: 0.8em;
       color: #888;
       text-decoration: none;
+    }
+
+    /* Impressum */
+    footer {
+      border-top: 2px dashed var(--border);
+      padding-top: 20px;
+      margin-top: 60px;
+      font-size: 0.75em;
+      color: #aaa;
+    }
+
+    footer h3 {
+      color: #ddd;
+      font-size: 1.1em;
+      margin-top: 0;
     }
   </style>
 </head>
@@ -85,7 +153,16 @@
 
   <h1>St. Martinslieder</h1>
 
-  <!-- Inhaltsverzeichnis mit Sprungmarken -->
+  <!-- Font Size Selector Controls -->
+  <div class="controls">
+    <span>Schriftgröße:</span>
+    <button class="btn-size" onclick="setFontSize('16px', this)">S</button>
+    <button class="btn-size active" onclick="setFontSize('20px', this)">M</button>
+    <button class="btn-size" onclick="setFontSize('24px', this)">L</button>
+    <button class="btn-size" onclick="setFontSize('28px', this)">XL</button>
+  </div>
+
+  <!-- Table of Contents -->
   <nav>
     <strong>Liedauswahl:</strong>
     <ul>
@@ -95,7 +172,7 @@
     </ul>
   </nav>
 
-  <!-- Lied 1 -->
+  <!-- Song 1 -->
   <article class="song" id="lied1">
     <h2>1. Sankt Martin</h2>
     
@@ -138,7 +215,7 @@
     <a href="#" class="back-to-top">↑ Zurück nach oben</a>
   </article>
 
-  <!-- Lied 2 -->
+  <!-- Song 2 -->
   <article class="song" id="lied2">
     <h2>2. Laternenlied</h2>
 
@@ -166,7 +243,7 @@
     <a href="#" class="back-to-top">↑ Zurück nach oben</a>
   </article>
 
-  <!-- Lied 3 -->
+  <!-- Song 3 -->
   <article class="song" id="lied3">
     <h2>3. Ich geh' mit meiner Laterne</h2>
 
@@ -195,10 +272,36 @@
     <a href="#" class="back-to-top">↑ Zurück nach oben</a>
   </article>
 
-  <!-- Bildschirmsperre verhindern (Wake Lock API) -->
+  <!-- Impressum -->
+  <footer>
+    <h3>Impressum</h3>
+    <p>
+      <strong>Verantwortlich für den Inhalt:</strong><br>
+      [Vorname Nachname / Name des Vereins]<br>
+      [Musterstraße 12]<br>
+      [12345 Musterstadt]
+    </p>
+    <p>
+      <strong>Kontakt:</strong><br>
+      E-Mail: [deine-email@example.com]<br>
+      Telefon: [optional]
+    </p>
+  </footer>
+
+  <!-- Scripts -->
   <script>
+    // Wake Lock API: Prevent screen lock
     if ('wakeLock' in navigator) {
       navigator.wakeLock.request('screen').catch(() => {});
+    }
+
+    // Font size switcher function
+    function setFontSize(size, element) {
+      document.documentElement.style.setProperty('--base-font-size', size);
+      
+      const buttons = document.querySelectorAll('.btn-size');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      element.classList.add('active');
     }
   </script>
 </body>
